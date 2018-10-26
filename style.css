@@ -137,7 +137,7 @@ ol {
 }
 
 .set-bg {
-	background-size: cover;
+	background-size: contain;
 	background-repeat: no-repeat;
 }
 
