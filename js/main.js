@@ -1,324 +1,163 @@
-/* =================================
-------------------------------------
-	Arcade - Architecture
-	Version: 1.0
- ------------------------------------ 
- ====================================*/
+jQuery(function($) {
 
-
-
-'use strict';
-
-var window_w = $(window).innerWidth();
-
-
-$(window).on('load', function() { 
-	/*------------------
-		Preloder
-	--------------------*/
-	$(".loader").fadeOut(); 
-	$("#preloder").delay(400).fadeOut("slow");
-
-	__portfolio(); // call portfolio function
-
-});
-
-
-(function($) {
-
-	/*------------------
-		Navigation
-	--------------------*/
-	$('.nav-switch').on('click', function(event) {
-		$('.nav-menu').slideToggle(400);
-		event.preventDefault();
+	//Preloader
+	var preloader = $('.preloader');
+	$(window).load(function(){
+		preloader.remove();
 	});
 
+	//#main-slider
+	var slideHeight = $(window).height();
+	$('#home-slider .item').css('height',slideHeight);
 
-
-	/*------------------
-		Background set
-	--------------------*/
-	$('.set-bg').each(function() {
-		var bg = $(this).data('setbg');
-		$(this).css('background-image', 'url(' + bg + ')');
+	$(window).resize(function(){'use strict',
+		$('#home-slider .item').css('height',slideHeight);
 	});
-
-
-	/*------------------
-		Hero Slider
-	--------------------*/
-	var hero_s = $(".hero-slider");
-    hero_s.owlCarousel({
-        loop: true,
-        margin: 0,
-        nav: true,
-        items: 1,
-        dots: false,
-        animateOut: 'fadeOutRight',
-    	animateIn: 'fadeInLeft',
-        navText: ['<i class="fa fa-long-arrow-left"></i> Anterior', 'Siguiente<i class="fa fa-long-arrow-right"></i>'],
-        smartSpeed: 1200,
-        autoHeight: false,
-        //autoplay: true,
-        mouseDrag: false,
-        onInitialized: function() {
-        	var a = this.items().length;
-        	if(a < 10){
-            	$("#snh-1").html("<span>01" + " / </span>0" + a);
-       		} else{
-       			$("#snh-1").html("<span>01" + " / </span>" + a);
-       		}
-        }
-    }).on("changed.owl.carousel", function(a) {
-        var b = --a.item.index, a = a.item.count;
-        if(a < 10){
-        	$("#snh-1").html("<span>0" + ( 1 > b ? b + a : b > a ? b - a : b) + " / </span>0" + a);
-    	} else{
-    		$("#snh-1").html("<span> "+ (1 > b ? b + a : b > a ? b - a : b) + " / </span>" + a);
-    	}
-    });
-
-
-
-	/*------------------
-		Projects Slider
-	--------------------*/
-	var project = $('#projects-carousel').owlCarousel({
-		nav: true,
-		loop: true,
-		margin:20,
-		navText: ['<i class="fa fa-long-arrow-left"></i> Anterior', 'Siguiente<i class="fa fa-long-arrow-right"></i>'],
-		responsive:{
-			0:{
-				items:1,
-				margin: 0
-			},
-			600:{
-				items:2
-			},
-			800:{
-				items:2
-			},
-			992:{
-				items:3
-			},
-			1200:{
-				items:4
-			},
+	
+	//Scroll Menu
+	$(window).on('scroll', function(){
+		if( $(window).scrollTop()>slideHeight ){
+			$('.main-nav').addClass('navbar-fixed-top');
+		} else {
+			$('.main-nav').removeClass('navbar-fixed-top');
 		}
 	});
-	/* animate filter */
-	var owlAnimateFilter = function(even) {
-		$(this)
-		.addClass('__loading')
-		.delay(70 * $(this).parent().index())
-		.queue(function() {
-			$(this).dequeue().removeClass('__loading')
-		});
-	}
-	/* Projects filter */
-	$('.projects-filter-nav li').on('click', function(e) {
-		var filter_data = $(this).data('filter');
-
-		/* return if current */
-		if($(this).hasClass('btn-active')) return;
-
-		/* active current */
-		$(this).addClass('btn-active').siblings().removeClass('btn-active');
-
-		/* Filter */
-		project.owlFilter(filter_data, function(_owl) { 
-			$(_owl).find('.single-project').each(owlAnimateFilter); 
-		});
+	
+	// Navigation Scroll
+	$(window).scroll(function(event) {
+		Scroll();
 	});
 
-
-
-	/*------------------
-		Brands Slider
-	--------------------*/
-	$('#client-carousel').owlCarousel({
-		nav: false,
-		loop: true,
-		margin:20,
-		autoplay: true,
-		responsive:{
-			0:{
-				items:1,
-				margin: 0
-			},
-			600:{
-				items:3
-			},
-			800:{
-				items:4
-			},
-			992:{
-				items:4
-			},
-			1200:{
-				items:5
-			},
-		}
-	});
-
-
-
-	/*------------------
-		Review Slider
-	--------------------*/
-	var test_s = $("#test-slider");
-    test_s.owlCarousel({
-        loop: true,
-        margin: 0,
-        nav: false,
-        items: 1,
-        dots: false,
-        autoplay: true,
-        onInitialized: function() {
-        	var a = this.items().length;
-        	if(a < 10){
-            	$("#snh-2").html("<span>01" + "/ </span>0" + a);
-       		} else{
-       			$("#snh-2").html("<span>01" + "/ </span>" + a);
-       		}
-        }
-    }).on("changed.owl.carousel", function(a) {
-        var b = --a.item.index, a = a.item.count;
-        if(a < 10){
-        	$("#snh-2").html("<span>0" + ( 1 > b ? b + a : b > a ? b - a : b) + "/ </span>0" + a);
-    	} else{
-    		$("#snh-2").html("<span> "+ (1 > b ? b + a : b > a ? b - a : b) + "/ </span>" + a);
-    	}
-    });
-
-
-
-    /*------------------
-		Service Slider
-	--------------------*/
-	$('.service-slider').owlCarousel({
-        loop: true,
-        margin: 0,
-        nav: false,
-        items: 1,
-        dots: true,
-        autoplay: true,
-    });
-
-
-
-	/*------------------
-		Popup
-	--------------------*/
-	$('.img-popup').magnificPopup({
-		type: 'image',
-		mainClass: 'img-popup-warp',
-		removalDelay: 400,
-	});
-
-
-	/*------------------
-		Accordions
-	--------------------*/
-	$('.panel-link').on('click', function (e) {
-		$('.panel-link').parent('.panel-header').removeClass('active');
-		var $this = $(this).parent('.panel-header');
-		if (!$this.hasClass('active')) {
-			$this.addClass('active');
-		}
-		e.preventDefault();
-	});
-
-
-
-	//Set progress circle 1
-	$("#progress1").circleProgress({
-		value: 0.75,
-		size: 195,
-		thickness: 20,
-		fill: "#baff00",
-		emptyFill: "rgba(0, 0, 0, 0)"
-	});
-	//Set progress circle 2
-	$("#progress2").circleProgress({
-		value: 0.83,
-		size: 195,
-		thickness: 20,
-		fill: "#baff00",
-		emptyFill: "rgba(0, 0, 0, 0)"
-	});
-	//Set progress circle 3
-	$("#progress3").circleProgress({
-		value: 0.25,
-		size: 195,
-		thickness: 20,
-		fill: "#baff00",
-		emptyFill: "rgba(0, 0, 0, 0)"
-	});
-	//Set progress circle 4
-	$("#progress4").circleProgress({
-		value: 0.95,
-		size: 195,
-		thickness: 20,
-		fill: "#baff00",
-		emptyFill: "rgba(0, 0, 0, 0)"
-	});
-
-})(jQuery);
-
-
-/*------------------
-	Portfolio 
---------------------*/
-function __portfolio(){
-
-	portfolio_item_size();
-
-	$(window).on('resize', function(){
-		portfolio_item_size();
-	});
-
-
-	var $container = $('#portfolio');
-	$container.isotope({
-		itemSelector: '.grid-item',
-		percentPosition: true,
-		masonry: {
-			columnWidth: '.grid-sizer'
-		}
-	});
-
-	// portfolio filter nav
-	$('.portfolio-filter li').on("click", function(){
-		$(".portfolio-filter li").removeClass("active");
-		$(this).addClass("active");				 
-		var selector = $(this).attr('data-filter');
-		$container.isotope({
-				filter: selector,
-				animationOptions: {
-				duration: 750,
-				easing: 'linear',
-				queue: false,
-			}
-		});
+	$('.navbar-collapse ul li a').on('click', function() {  
+		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 1000);
 		return false;
 	});
-}
 
-/*------------------
-	Portfolio grid
---------------------*/
-function portfolio_item_size(){
-	$('#portfolio').find('.grid-item').each(function() {
-		var pi_height1 = $(this).outerWidth(true),
-		pi_height2 = pi_height1/2;
-		
-		if($(this).hasClass('grid-long') && window_w > 991){
-			$(this).css('height', pi_height2);
-		}else{
-			$(this).css('height', Math.abs(pi_height1));
+	// User define function
+	function Scroll() {
+		var contentTop      =   [];
+		var contentBottom   =   [];
+		var winTop      =   $(window).scrollTop();
+		var rangeTop    =   200;
+		var rangeBottom =   500;
+		$('.navbar-collapse').find('.scroll a').each(function(){
+			contentTop.push( $( $(this).attr('href') ).offset().top);
+			contentBottom.push( $( $(this).attr('href') ).offset().top + $( $(this).attr('href') ).height() );
+		})
+		$.each( contentTop, function(i){
+			if ( winTop > contentTop[i] - rangeTop ){
+				$('.navbar-collapse li.scroll')
+				.removeClass('active')
+				.eq(i).addClass('active');			
+			}
+		})
+	};
+
+	$('#tohash').on('click', function(){
+		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 1000);
+		return false;
+	});
+	
+	//Initiat WOW JS
+	new WOW().init();
+	//smoothScroll
+	smoothScroll.init();
+	
+	// Progress Bar
+	$('#about-us').bind('inview', function(event, visible, visiblePartX, visiblePartY) {
+		if (visible) {
+			$.each($('div.progress-bar'),function(){
+				$(this).css('width', $(this).attr('aria-valuetransitiongoal')+'%');
+			});
+			$(this).unbind('inview');
 		}
 	});
-}
+
+	//Countdown
+	$('#features').bind('inview', function(event, visible, visiblePartX, visiblePartY) {
+		if (visible) {
+			$(this).find('.timer').each(function () {
+				var $this = $(this);
+				$({ Counter: 0 }).animate({ Counter: $this.text() }, {
+					duration: 2000,
+					easing: 'swing',
+					step: function () {
+						$this.text(Math.ceil(this.Counter));
+					}
+				});
+			});
+			$(this).unbind('inview');
+		}
+	});
+
+	// Portfolio Single View
+	$('#portfolio').on('click','.folio-read-more',function(event){
+		event.preventDefault();
+		var link = $(this).data('single_url');
+		var full_url = '#portfolio-single-wrap',
+		parts = full_url.split("#"),
+		trgt = parts[1],
+		target_top = $("#"+trgt).offset().top;
+
+		$('html, body').animate({scrollTop:target_top}, 600);
+		$('#portfolio-single').slideUp(500, function(){
+			$(this).load(link,function(){
+				$(this).slideDown(500);
+			});
+		});
+	});
+
+	// Close Portfolio Single View
+	$('#portfolio-single-wrap').on('click', '.close-folio-item',function(event) {
+		event.preventDefault();
+		var full_url = '#portfolio',
+		parts = full_url.split("#"),
+		trgt = parts[1],
+		target_offset = $("#"+trgt).offset(),
+		target_top = target_offset.top;
+		$('html, body').animate({scrollTop:target_top}, 600);
+		$("#portfolio-single").slideUp(500);
+	});
+
+	// Contact form
+	var form = $('#main-contact-form');
+	form.submit(function(event){
+		event.preventDefault();
+		var form_status = $('<div class="form_status"></div>');
+		$.ajax({
+			url: $(this).attr('action'),
+			beforeSend: function(){
+				form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Email is sending...</p>').fadeIn() );
+			}
+		}).done(function(data){
+			form_status.html('<p class="text-success">Thank you for contact us. As early as possible  we will contact you</p>').delay(3000).fadeOut();
+		});
+	});
+
+	//Google Map
+	var latitude = $('#google-map').data('latitude')
+	var longitude = $('#google-map').data('longitude')
+	function initialize_map() {
+		var myLatlng = new google.maps.LatLng(latitude,longitude);
+		var mapOptions = {
+			zoom: 14,
+			scrollwheel: false,
+			center: myLatlng
+		};
+		var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+		var contentString = '';
+		var infowindow = new google.maps.InfoWindow({
+			content: '<div class="map-content"><ul class="address">' + $('.address').html() + '</ul></div>'
+		});
+		var marker = new google.maps.Marker({
+			position: myLatlng,
+			map: map
+		});
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.open(map,marker);
+		});
+	}
+	google.maps.event.addDomListener(window, 'load', initialize_map);
+	
+});
+
