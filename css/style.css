@@ -236,16 +236,9 @@ margin-top: -40px;
 	width: 100%;
 }
 
-.home_text h2{
-	font-size: 30px;
-}
-
 @media(max-width: 767px){
 	.imac{
 		margin-top: 20px
-	}
-	.home_text h2{
-		font-size: 30px;
 	}
 }
 .single_image{
