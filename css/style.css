@@ -48,6 +48,14 @@ header{
 	text-transform: uppercase;
 	letter-spacing: 10px;
 }
+
+.home_text h3{
+	color: #010101;
+	font-size: 20px;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+}
+
 .home_text p{
 	color: #404040;
 	font-size: 14px;
