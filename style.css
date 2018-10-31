@@ -39,9 +39,11 @@
 	height: 32px;
 }
 
+/*color icon*/
+
 .single-icon > i {
     font-size: 36px;
-    color: #fb397d;
+    color: #black;
 }
 
 .single-special > h4 {
