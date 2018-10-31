@@ -44,9 +44,9 @@ header{
 }
 .home_text h2{
 	color: #010101;
-	font-size: 25px;
+	font-size: 40px;
 	text-transform: uppercase;
-	letter-spacing: 10px;
+	letter-spacing: 13px;
 }
 
 .home_text h3{
@@ -248,6 +248,12 @@ margin-top: -40px;
 	.imac{
 		margin-top: 20px
 	}
+	.home_text h2 {
+    color: #010101;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
 }
 .single_image{
 	margin-right: 3px;
