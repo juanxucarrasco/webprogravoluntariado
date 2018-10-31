@@ -1,6 +1,6 @@
 @font-face {
 	font-family: 'et-line';
-	src:url('fonts/et-line.eot');
+	src:url(fonts/Dited.ttf), url(fonts/Dited.eot), url(fonts/Dited.otf);
 	src:url('fonts/et-line.eot?#iefix') format('embedded-opentype'),
 		url('fonts/et-line.woff') format('woff'),
 		url('fonts/et-line.ttf') format('truetype'),
