@@ -27,10 +27,17 @@
         margin-bottom: 0;
     }
 
-
+.footer_logo img{
+	width: 50%;
+	margin-bottom: 0px;
+}
 /* --------------------------
 :: 4.0 Special Area CSS
 -------------------------- */
+.navbar-brand img{
+	width: 152px;
+	height: 32px;
+}
 
 .single-icon > i {
     font-size: 36px;
