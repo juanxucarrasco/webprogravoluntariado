@@ -44,9 +44,9 @@ header{
 }
 .home_text h2{
 	color: #010101;
-	font-size: 30px;
+	font-size: 25px;
 	text-transform: uppercase;
-	letter-spacing: 13px;
+	letter-spacing: 10px;
 }
 .home_text p{
 	color: #404040;
