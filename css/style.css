@@ -31,7 +31,7 @@ header{
 	background: rgba(250,250,250, .5);
 }
 .home_text{
-	padding-top: 120px;
+	padding-top: 100px;
 	padding-bottom: 210px;
 	height: 100vh;	
 }
@@ -242,7 +242,7 @@ margin-top: -40px;
 		margin-top: 20px;
 	}
 	.home_text h2 {
-    color: #010101;
+    color: #DF013A;
     font-size: 20px;
     text-transform: uppercase;
     letter-spacing: 10px;    
