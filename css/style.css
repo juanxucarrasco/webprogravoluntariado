@@ -190,8 +190,10 @@ padding-top: 110px;
 	background: url(../images/header_bg.jpg);
 	background-attachment: fixed !important;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: contain;
 	margin-top: 100px;
+	width: 100%;
+	height: auto;
 	
 }
 .fun_facts .section_overlay{
@@ -256,6 +258,11 @@ margin-top: -40px;
 	    margin-right: auto;
 	}
 
+	.fun_facts{
+		width: 100%;
+  		height: auto;
+  		vertical-align: middle;
+	}
 }
 .single_image{
 	margin-right: 3px;
